@@ -8,7 +8,7 @@ class HelloGuiConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
 
     requires = (
-        "zlib/1.3.1",
+        "sdl/3.2.20",
     )
 
     generators = (

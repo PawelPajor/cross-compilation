@@ -1,55 +1,21 @@
+// Created by Pawel Pajor on 23/01/2026. All rights reserved.
+
 #define WIN32_LEAN_AND_MEAN
-#include <windows.h>
 
-#include <zlib.h>
-#include <string>
+#include <SDL3/SDL.h>
+#include <Windows.h>
 
-int WINAPI WinMain(
-    HINSTANCE hInstance,
-    HINSTANCE,
-    LPSTR,
-    int)
-{
-    const char* input = "Hello from zlib!";
-    const uLong input_len = static_cast<uLong>(strlen(input));
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
-    uLongf compressed_len = compressBound(input_len);
-    std::string compressed;
-    compressed.resize(compressed_len);
+  if (!SDL_Init(SDL_INIT_VIDEO)) {
+    MessageBoxA(nullptr, SDL_GetError(), "SDL_Init failed",
+                MB_OK | MB_ICONERROR);
+    return 1;
+  }
 
-    int res = compress(
-        reinterpret_cast<Bytef*>(compressed.data()),
-        &compressed_len,
-        reinterpret_cast<const Bytef*>(input),
-        input_len
-    );
+  SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Hello",
+                           "Hello from SDL3!", nullptr);
 
-    char buffer[256];
-
-    if (res == Z_OK)
-    {
-        wsprintfA(
-            buffer,
-            "zlib OK!\nOriginal: %lu bytes\nCompressed: %lu bytes",
-            input_len,
-            compressed_len
-        );
-    }
-    else
-    {
-        wsprintfA(
-            buffer,
-            "zlib failed! Error code: %d",
-            res
-        );
-    }
-
-    MessageBoxA(
-        nullptr,
-        buffer,
-        "Hello + zlib",
-        MB_OK | MB_ICONINFORMATION
-    );
-
-    return 0;
+  SDL_Quit();
+  return 0;
 }

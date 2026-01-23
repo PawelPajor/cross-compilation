@@ -14,6 +14,7 @@
       - [Dynamic](#dynamic)
   - [With cmake (2nd attempt)](#with-cmake-2nd-attempt)
   - [With conan](#with-conan)
+  - [Links](#links)
 
 
 ## With cmake (1st attempt)
@@ -239,3 +240,7 @@ cmake --preset conan-release
 ```sh
 cmake --build --preset conan-release
 ```
+
+## Links
+
+- [Profiles](profiles.md)

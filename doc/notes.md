@@ -14,7 +14,8 @@
       - [Dynamic](#dynamic)
   - [With cmake (2nd attempt)](#with-cmake-2nd-attempt)
   - [With conan](#with-conan)
-  - [Links](#links)
+  - [Profiles](#profiles)
+  - [Toolchains](#toolchains)
 
 
 ## With cmake (1st attempt)
@@ -226,7 +227,6 @@ alias build='cmake --build build-win'
 conan install . \
   --profile:build=cross-ninja-llvm-build \
   --profile:host=cross-ninja-llvm-host-win64 \
-  --conf tools.cmake.cmaketoolchain:user_toolchain="[\"${PWD}/toolchains/windows-llvm.cmake\"]" \
   --build=missing
 ```
 
@@ -242,6 +242,11 @@ cmake --preset conan-release
 cmake --build --preset conan-release
 ```
 
-## Links
+## Profiles
 
-- [Profiles](profiles.md)
+- `~/.conan2/profiles/cross-ninja-llvm-host-win64`
+- `~/.conan2/profiles/cross-ninja-llvm-build`
+
+## Toolchains
+
+- `~/.cmake_toolchains/windows-llvm.cmake`

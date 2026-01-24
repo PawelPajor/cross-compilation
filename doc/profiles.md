@@ -35,5 +35,4 @@ build_type=Release
 [conf]
 tools.cmake.cmaketoolchain:generator=Ninja
 tools.cmake.cmaketoolchain:system_name=Windows
-tools.cmake.cmaketoolchain:user_toolchain=["/Users/pawel/Repos/tmp/cross/toolchains/windows-llvm.cmake"]
 ```

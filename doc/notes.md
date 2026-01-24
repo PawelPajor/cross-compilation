@@ -226,6 +226,7 @@ alias build='cmake --build build-win'
 conan install . \
   --profile:build=cross-ninja-llvm-build \
   --profile:host=cross-ninja-llvm-host-win64 \
+  --conf tools.cmake.cmaketoolchain:user_toolchain="[\"${PWD}/toolchains/windows-llvm.cmake\"]" \
   --build=missing
 ```
 

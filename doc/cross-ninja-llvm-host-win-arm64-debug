@@ -1,0 +1,14 @@
+[settings]
+compiler=clang
+compiler.version=20
+compiler.cppstd=23
+os=Windows
+arch=armv8
+compiler.runtime=dynamic
+build_type=Debug
+
+[conf]
+tools.cmake.cmaketoolchain:generator=Ninja
+tools.cmake.cmaketoolchain:system_name=Windows
+tools.cmake.cmaketoolchain:user_toolchain=["/Users/pawel/.cmake_toolchains/cross-llvm-host-win-arm64.cmake"]
+tools.cmake.cmake_layout:build_folder_vars=["const.win-arm64"]

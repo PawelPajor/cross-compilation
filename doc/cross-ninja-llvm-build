@@ -1,0 +1,15 @@
+[settings]
+compiler=clang
+compiler.version=20
+compiler.cppstd=23
+os=Macos
+arch=armv8
+compiler.libcxx=libc++
+build_type=Release
+
+[conf]
+tools.cmake.cmaketoolchain:generator=Ninja
+
+[buildenv]
+CC=/opt/homebrew/opt/llvm/bin/clang
+CXX=/opt/homebrew/opt/llvm/bin/clang++

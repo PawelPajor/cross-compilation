@@ -16,7 +16,10 @@
   - [With conan](#with-conan)
   - [Profiles](#profiles)
   - [Win arm64 + x86\_64](#win-arm64--x86_64)
-  - [Toolchains](#toolchains)
+  - [Build files](#build-files)
+    - [Toolchains](#toolchains)
+    - [Profiles](#profiles-1)
+  - [Toolchains](#toolchains-1)
 
 
 ## With cmake (1st attempt)
@@ -280,18 +283,18 @@ export OS=win
 export ARCH=arm64
 
 # supported values: `release`, `debug`
-export CONFIGURATION=release
+export BLD_TYPE=release
 
-# Build Aliases:
+# Build aliases:
 
 alias arm='export ARCH=arm64'
 alias x64='export ARCH=x86_64'
-alias dbg='export CONFIGURATION=debug'
-alias rel='export CONFIGURATION=release'
+alias dbg='export BLD_TYPE=debug'
+alias rel='export BLD_TYPE=release'
 
-alias inst='conan install . --profile:build=cross-${GENERATOR}-${COMPILER}-build --profile:host=cross-${GENERATOR}-${COMPILER}-host-${OS}-${ARCH}-${CONFIGURATION} --output-folder=cmake-build-${OS}-${ARCH}-${CONFIGURATION} --build=missing'
-alias cmk='cmake --preset conan-${OS}-${ARCH}-${CONFIGURATION}'
-alias bld='cmake --build cmake-build-${OS}-${ARCH}-${CONFIGURATION} --preset conan-${OS}-${ARCH}-${CONFIGURATION}'
+alias inst='conan install . --profile:build=cross-${GENERATOR}-${COMPILER}-build --profile:host=cross-${GENERATOR}-${COMPILER}-host-${OS}-${ARCH}-${BLD_TYPE} --output-folder=cmake-build-${OS}-${ARCH}-${BLD_TYPE} --build=missing'
+alias cmk='cmake --preset conan-${OS}-${ARCH}-${BLD_TYPE}'
+alias bld='cmake --build cmake-build-${OS}-${ARCH}-${BLD_TYPE} --preset conan-${OS}-${ARCH}-${BLD_TYPE}'
 alias cln='rm -rf cmake-build-* CMakeUserPresets.json'
 
 # Git aliases
@@ -306,6 +309,20 @@ alias gs='git status'
 
 ```
 
+## Build files
+
+### Toolchains
+
+- [cross-llvm-host-win-arm64.cmake](cross-llvm-host-win-arm64.cmake)
+- [cross-llvm-host-win-x86_64.cmake](cross-llvm-host-win-x86_64.cmake)
+
+### Profiles
+
+- [cross-ninja-llvm-build](cross-ninja-llvm-build)
+- [cross-ninja-llvm-host-win-arm64-debug](cross-ninja-llvm-host-win-arm64-debug)
+- [cross-ninja-llvm-host-win-arm64-release](cross-ninja-llvm-host-win-arm64-release)
+- [cross-ninja-llvm-host-win-x86_64-debug](cross-ninja-llvm-host-win-x86_64-debug)
+- [cross-ninja-llvm-host-win-x86_64-release](cross-ninja-llvm-host-win-x86_64-release)
 
 ## Toolchains
 

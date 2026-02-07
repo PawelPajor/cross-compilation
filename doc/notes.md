@@ -295,7 +295,11 @@ alias rel='export BLD_TYPE=release'
 alias inst='conan install . --profile:build=cross-${GENERATOR}-${COMPILER}-build --profile:host=cross-${GENERATOR}-${COMPILER}-host-${OS}-${ARCH}-${BLD_TYPE} --output-folder=cmake-build-${OS}-${ARCH}-${BLD_TYPE} --build=missing'
 alias cmk='cmake --preset conan-${OS}-${ARCH}-${BLD_TYPE}'
 alias bld='cmake --build cmake-build-${OS}-${ARCH}-${BLD_TYPE} --preset conan-${OS}-${ARCH}-${BLD_TYPE}'
-alias cln='rm -rf cmake-build-* CMakeUserPresets.json'
+alias cln='rm -rf cmake-build-${OS}-${ARCH}-${BLD_TYPE} CMakeUserPresets.json'
+alias cln_all='rm -rf cmake-build-* CMakeUserPresets.json'
+alias full='inst && cmk && bld'
+alias rebuild='cln && full'
+alias rebuild_all='cln_all && arm && dbg && full && rel && full && x64 && full && dbg && full'
 
 # Git aliases
 

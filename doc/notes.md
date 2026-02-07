@@ -264,27 +264,45 @@ cmake --build --preset conan-release
 ## Win arm64 + x86_64
 
 ```sh
-rm -rf cmake-build-* CMakeUserPresets.json
 
-conan install . \
---profile:build=cross-ninja-llvm-build \
---profile:host=cross-ninja-llvm-host-win-arm64-rel \
---output-folder=cmake-build-win-arm64-rel \
---conf tools.cmake.cmake_layout:build_folder_vars="[\"const.win-arm64\"]"
---build=missing
+# Base:
 
-conan install . \
---profile:build=cross-ninja-llvm-build \
---profile:host=cross-ninja-llvm-host-win-x86_64-rel \
---output-folder=cmake-build-win-x86_64-rel \
---conf tools.cmake.cmake_layout:build_folder_vars="[\"const.win-x86_64\"]"
---build=missing
+# supported values: `ninja`
+export GENERATOR=ninja
 
-cmake --preset conan-win-arm64-release
-cmake --build cmake-build-win-arm64-rel --preset conan-win-arm64-release
+# supported values: `llvm`
+export COMPILER=llvm
 
-cmake --preset conan-win-x86_64-release
-cmake --build cmake-build-win-x86_64-rel --preset conan-win-x86_64-release
+# supported values: `win`
+export OS=win
+
+# supported values: `arm64`, `x86_64`
+export ARCH=arm64
+
+# supported values: `release`, `debug`
+export CONFIGURATION=release
+
+# Build Aliases:
+
+alias arm='export ARCH=arm64'
+alias x64='export ARCH=x86_64'
+alias dbg='export CONFIGURATION=debug'
+alias rel='export CONFIGURATION=release'
+
+alias inst='conan install . --profile:build=cross-${GENERATOR}-${COMPILER}-build --profile:host=cross-${GENERATOR}-${COMPILER}-host-${OS}-${ARCH}-${CONFIGURATION} --output-folder=cmake-build-${OS}-${ARCH}-${CONFIGURATION} --build=missing'
+alias cmk='cmake --preset conan-${OS}-${ARCH}-${CONFIGURATION}'
+alias bld='cmake --build cmake-build-${OS}-${ARCH}-${CONFIGURATION} --preset conan-${OS}-${ARCH}-${CONFIGURATION}'
+alias cln='rm -rf cmake-build-* CMakeUserPresets.json'
+
+# Git aliases
+
+alias ga='git add .'
+alias gb='git checkout -b'
+alias gcm='git commit -m'
+alias gca='git commit --amend --no-edit'
+alias gl='git log --oneline'
+alias gp='git push'
+alias gs='git status'
 
 ```
 

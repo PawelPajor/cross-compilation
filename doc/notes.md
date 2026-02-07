@@ -15,6 +15,7 @@
   - [With cmake (2nd attempt)](#with-cmake-2nd-attempt)
   - [With conan](#with-conan)
   - [Profiles](#profiles)
+  - [Win arm64 + x86\_64](#win-arm64--x86_64)
   - [Toolchains](#toolchains)
 
 
@@ -224,6 +225,18 @@ alias build='cmake --build build-win'
 - Install
 
 ```sh
+conan create sdl \
+  --profile:build=cross-ninja-llvm-build \
+  --profile:host=cross-ninja-llvm-host-win64 \
+  --version=3.2.20 \
+  --build=missing
+
+conan cache path sdl/3.2.20
+
+conan download sdl/3.2.20 -r=conancenter --only-recipe
+
+conan remove sdl/3.2.20 -c
+
 conan install . \
   --profile:build=cross-ninja-llvm-build \
   --profile:host=cross-ninja-llvm-host-win64 \
@@ -244,8 +257,37 @@ cmake --build --preset conan-release
 
 ## Profiles
 
+- `~/.conan2/profiles/cross-ninja-llvm-host-arm64`
 - `~/.conan2/profiles/cross-ninja-llvm-host-win64`
 - `~/.conan2/profiles/cross-ninja-llvm-build`
+
+## Win arm64 + x86_64
+
+```sh
+rm -rf cmake-build-* CMakeUserPresets.json
+
+conan install . \
+--profile:build=cross-ninja-llvm-build \
+--profile:host=cross-ninja-llvm-host-win-arm64-rel \
+--output-folder=cmake-build-win-arm64-rel \
+--conf tools.cmake.cmake_layout:build_folder_vars="[\"const.win-arm64\"]"
+--build=missing
+
+conan install . \
+--profile:build=cross-ninja-llvm-build \
+--profile:host=cross-ninja-llvm-host-win-x86_64-rel \
+--output-folder=cmake-build-win-x86_64-rel \
+--conf tools.cmake.cmake_layout:build_folder_vars="[\"const.win-x86_64\"]"
+--build=missing
+
+cmake --preset conan-win-arm64-release
+cmake --build cmake-build-win-arm64-rel --preset conan-win-arm64-release
+
+cmake --preset conan-win-x86_64-release
+cmake --build cmake-build-win-x86_64-rel --preset conan-win-x86_64-release
+
+```
+
 
 ## Toolchains
 

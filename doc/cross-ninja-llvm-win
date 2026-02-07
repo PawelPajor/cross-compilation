@@ -1,0 +1,10 @@
+[settings]
+compiler=clang
+compiler.version=20
+compiler.cppstd=23
+os=Windows
+compiler.runtime=dynamic
+
+[conf]
+tools.cmake.cmaketoolchain:generator=Ninja
+tools.cmake.cmaketoolchain:system_name=Windows

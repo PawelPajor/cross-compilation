@@ -1,14 +1,9 @@
+include(cross-ninja-llvm-win)
+
 [settings]
-compiler=clang
-compiler.version=20
-compiler.cppstd=23
-os=Windows
 arch=x86_64
-compiler.runtime=dynamic
 build_type=Release
 
 [conf]
-tools.cmake.cmaketoolchain:generator=Ninja
-tools.cmake.cmaketoolchain:system_name=Windows
 tools.cmake.cmaketoolchain:user_toolchain=["/Users/pawel/.cmake_toolchains/cross-llvm-host-win-x86_64.cmake"]
 tools.cmake.cmake_layout:build_folder_vars=["const.win-x86_64"]
